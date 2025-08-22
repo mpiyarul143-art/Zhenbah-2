@@ -319,7 +319,12 @@ export default function ChatGrid({
                             isCollapsed
                               ? "overflow-hidden max-h-20 opacity-70"
                               : "space-y-2"
+                          } ${
+                            !isCollapsed
+                              ? "max-h-[40vh] md:max-h-[400px] overflow-y-auto custom-scrollbar"
+                              : ""
                           }`}
+                          style={{ WebkitOverflowScrolling: 'touch' }}
                         >
                           {ans && String(ans.content || "").length > 0 && !["Thinking…","Typing…"].includes(String(ans.content)) ? (
                             <>
