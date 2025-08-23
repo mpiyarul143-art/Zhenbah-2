@@ -721,7 +721,7 @@ body.light * {
   padding-right: env(safe-area-inset-right);
 }
 
-.model-chip { @apply h-8 px-2.5 text-[11px] rounded-full inline-flex items-center gap-1.5 transition-colors shrink-0 border bg-white/5 hover:bg-white/10; }
+.model-chip { @apply h-8 px-2.5 text-[11px] rounded-full inline-flex items-center gap-1.5 transition-colors shrink-0 border bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10; }
 .model-chip-pro { border-color: var(--badge-pro-border); }
 .model-chip-free { border-color: var(--badge-free-border); }
 .model-chip-selected { background: var(--badge-pro-background); }
@@ -736,6 +736,10 @@ body.light * {
 
 /* AI Chat Box toolbar background */
 .ai-toolbar-bg {
+  background-color: rgba(0, 0, 0, 0.52);
+}
+
+.dark .ai-toolbar-bg {
   background-color: rgba(14, 13, 13, 0.52);
 }
 

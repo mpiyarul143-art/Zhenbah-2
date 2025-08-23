@@ -89,7 +89,7 @@ export default function ProjectsSection({
                   ${
                     isActive
                       ? "bg-[var(--accent-interactive-primary)] ring-1 ring-[var(--accent-interactive-hover)] ring-offset-1 ring-offset-black text-white"
-                      : "bg-white/10 hover:bg-white/20 text-white/70 hover:text-white"
+                      : "bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white"
                   }`}
               >
                 <span className="text-[10px] font-semibold leading-none">

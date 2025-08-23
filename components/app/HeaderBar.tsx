@@ -38,7 +38,7 @@ export default function HeaderBar({
       <div className="flex items-center gap-2 min-w-0">
         <button
           onClick={onOpenMenu}
-          className="lg:hidden inline-flex items-center justify-center h-7 w-8 rounded-md bg-white/10 border border-white/15 text-white hover:bg-white/15"
+          className="lg:hidden inline-flex items-center justify-center h-7 w-8 rounded-md bg-black/10 dark:bg-white/10 border border-black/15 dark:border-white/15 text-black dark:text-white hover:bg-black/15 dark:hover:bg-white/15"
           aria-label="Open menu"
           title="Menu"
         >
@@ -48,7 +48,7 @@ export default function HeaderBar({
           href={authorLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-xs text-zinc-300 hover:text-white"
+          className="inline-flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white"
           title={`Open ${authorName} on X`}
         >
           <Image
@@ -69,7 +69,7 @@ export default function HeaderBar({
 
       {/* Center: title stays centered in available space (hidden on mobile) */}
       <div className="flex-1 text-center hidden sm:block">
-        <h1 className="text-xl md:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent drop-shadow-[0_1px_0_rgba(255,255,255,0.12)] select-none pointer-events-none">
+        <h1 className="text-xl md:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-black via-black/90 to-black/70 dark:from-white dark:via-white/90 dark:to-white/70 bg-clip-text text-transparent drop-shadow-[0_1px_0_rgba(0,0,0,0.12)] dark:drop-shadow-[0_1px_0_rgba(255,255,255,0.12)] select-none pointer-events-none">
           {title}
         </h1>
       </div>
@@ -78,7 +78,7 @@ export default function HeaderBar({
       <div className="flex items-center gap-2 z-10 ml-auto">
         <button
           onClick={() => onOpenModelsModal && onOpenModelsModal()}
-          className="inline-flex items-center gap-1.5 text-xs h-9 w-9 justify-center rounded-md border border-white/15 bg-white/5 hover:bg-white/10 shadow accent-focus"
+          className="inline-flex items-center gap-1.5 text-xs h-9 w-9 justify-center rounded-md border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 shadow accent-focus"
           title="Change models"
           aria-label="Change models"
         >

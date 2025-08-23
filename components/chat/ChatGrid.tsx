@@ -11,6 +11,8 @@ import {
   X,
   Star,
   Trash,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import MarkdownLite from "./MarkdownLite";
 import ConfirmDialog from "@/components/modals/ConfirmDialog";
@@ -98,16 +100,16 @@ export default function ChatGrid({
     <>
     <div
      ref={scrollRef} 
-     className="relative rounded-lg border border-white/5 bg-white/5 px-3 lg:px-4 pt-2 overflow-x-auto flex-1 overflow-y-auto pb-28 sm:scroll-stable-gutter">
+     className="relative rounded-lg border border-black/5 dark:border-white/5 bg-black/5 dark:bg-white/5 px-3 lg:px-4 pt-2 overflow-x-auto flex-1 overflow-y-auto pb-28 sm:scroll-stable-gutter">
       {selectedModels.length === 0 ? (
-        <div className="p-4 text-zinc-400">
+        <div className="p-4 text-zinc-500 dark:text-zinc-400">
           Select up to 5 models to compare.
         </div>
       ) : (
         <div className="min-w-full space-y-3">
           {/* Header row: model labels */}
           <div
-            className="relative grid min-w-full gap-3 items-center overflow-visible mt-0 sticky top-0 left-0 right-0 z-30 -mx-3 px-3 lg:-mx-4 lg:px-4 py-1 rounded-t-lg shadow-[0_1px_0_rgba(0,0,0,0.4)] bg-transparent border-0 sm:bg-black/40 sm:backdrop-blur-sm sm:border-b sm:border-white/10"
+            className="relative grid min-w-full gap-3 items-center overflow-visible mt-0 sticky top-0 left-0 right-0 z-30 -mx-3 px-3 lg:-mx-4 lg:px-4 py-1 rounded-t-lg shadow-[0_1px_0_rgba(0,0,0,0.4)] bg-transparent border-0 sm:bg-black/40 dark:sm:bg-black/40 sm:backdrop-blur-sm sm:border-b sm:border-black/10 dark:sm:border-white/10"
             style={{ gridTemplateColumns: headerCols }}
           >
             {selectedModels.map((m) => {
@@ -118,16 +120,16 @@ export default function ChatGrid({
                   key={m.id}
                   className={`px-2 py-1 sm:px-1 sm:py-2 min-h-[40px] border-b flex items-center ${
                     isCollapsed ? "justify-center" : "justify-between"
-                  } overflow-visible bg-black/70 sm:bg-transparent rounded-md sm:rounded-none ${
-                    m.good ? "border-amber-300/40" : "border-white/10"
+                  } overflow-visible bg-black/70 dark:bg-black/70 sm:bg-transparent rounded-md sm:rounded-none ${
+                    m.good ? "border-amber-300/40" : "border-black/10 dark:border-white/10"
                   }`}
                 >
                   {!isCollapsed && (
                     <div
                       className={`text-[13px] leading-normal font-medium pr-2 inline-flex items-center gap-1.5 min-w-0 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)] sm:drop-shadow-none bg-transparent px-0 py-0 sm:bg-transparent sm:px-0 sm:py-0 sm:rounded-none ${
                         m.good || isFree
-                          ? "opacity-100 text-white sm:text-inherit"
-                          : "opacity-100 text-white sm:opacity-90 sm:text-inherit"
+                          ? "opacity-100 text-black dark:text-white sm:text-inherit"
+                          : "opacity-100 text-black dark:text-white sm:opacity-90 sm:text-inherit"
                       }`}
                     >
                       {m.good && (
@@ -158,19 +160,17 @@ export default function ChatGrid({
                         className="icon-btn h-7 w-7 accent-focus"
                         title={`Expand ${m.label}`}
                       >
-                        <Eye size={13} />
+                        <ChevronDown size={14} />
                       </button>
                     ) : (
                       <button
                         onClick={() =>
-                          setCollapsedIds((prev) =>
-                            prev.includes(m.id) ? prev : [...prev, m.id]
-                          )
+                          setCollapsedIds((prev) => [...prev, m.id])
                         }
-                        className="text-[11px] px-2 py-1 rounded-md border border-white/10 bg-white/5 hover:bg-white/10 accent-focus"
+                        className="icon-btn h-7 w-7 accent-focus"
                         title={`Collapse ${m.label}`}
                       >
-                        <EyeOff size={12} />
+                        <ChevronUp size={14} />
                       </button>
                     )}
                   </div>
@@ -182,110 +182,44 @@ export default function ChatGrid({
           {pairs.map((row, i) => (
             <div key={i} className="space-y-3">
               {/* Prompt callout */}
-              <div className="relative flex items-start justify-between gap-3 px-3 py-2 rounded-lg ring-1 ring-white/10 chat-prompt-accent">
+              <div className="relative flex items-start justify-between gap-3 px-3 py-2 rounded-lg ring-1 ring-black/10 dark:ring-white/10 chat-prompt-accent">
                 <div className="chat-prompt-side" />
                 <div className="flex items-start gap-2 min-w-0 flex-1">
-                  <span className="inline-flex items-center gap-1.5 h-6 px-2.5 rounded-full text-[11px] font-semibold text-white bg-black/60 ring-1 ring-white/15 border border-white/15 backdrop-blur-sm shadow-[0_2px_10px_rgba(0,0,0,0.45)] shrink-0">
-                    <span className="h-2 w-2 rounded-full bg-white/90 shadow-[0_0_6px_rgba(255,255,255,0.6)]" />
+                  <span className="inline-flex items-center gap-1.5 h-6 px-2.5 rounded-full text-[11px] font-semibold text-black dark:text-white bg-black/60 dark:bg-black/60 ring-1 ring-black/15 dark:ring-white/15 border border-black/15 dark:border-white/15 backdrop-blur-sm shadow-[0_2px_10px_rgba(0,0,0,0.45)] shrink-0">
+                    <span className="h-2 w-2 rounded-full bg-black/90 dark:bg-white/90 shadow-[0_0_6px_rgba(0,0,0,0.6)] dark:shadow-[0_0_6px_rgba(255,255,255,0.6)]" />
                     You
                   </span>
-                  <div className="min-w-0 flex-1">
-                    {editingIdx === i ? (
-                      <div className="flex items-center gap-2 w-full">
-                        <input
-                          className="flex-1 bg-black/40 border border-white/10 rounded px-2 py-1 text-sm text-white"
-                          value={draft}
-                          onChange={(e) => setDraft(e.target.value)}
-                          autoFocus
-                          aria-label="Edit your prompt"
-                          placeholder="Edit your prompt"
-                        />
-                        <button
-                          onClick={() => {
-                            onEditUser(i, draft.trim());
-                            setEditingIdx(null);
-                            setDraft("");
-                          }}
-                          className="icon-btn h-7 w-7 accent-focus"
-                          title="Save"
-                        >
-                          <Save size={14} />
-                        </button>
-                        <button
-                          onClick={() => {
-                            setEditingIdx(null);
-                            setDraft("");
-                          }}
-                          className="icon-btn h-7 w-7 accent-focus"
-                          title="Cancel"
-                        >
-                          <X size={14} />
-                        </button>
-                      </div>
-                    ) : (
-                      <div
-                        className="text-[13.5px] sm:text-sm text-zinc-100 leading-relaxed truncate drop-shadow-[0_1px_0_rgba(0,0,0,0.2)]"
-                        title={row.user.content}
-                      >
-                        {row.user.content}
-                      </div>
-                    )}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm leading-relaxed text-black dark:text-white">
+                      {row.user.content}
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  {editingIdx !== i && (
-                    <button
-                      onClick={() => {
-                        setEditingIdx(i);
-                        setDraft(row.user.content);
-                      }}
-                      className="icon-btn h-7 w-7 accent-focus"
-                      title="Edit prompt"
-                    >
-                      <Pencil size={13} />
-                    </button>
-                  )}
+                <div className="flex items-center gap-1 shrink-0">
                   <button
-                    onClick={() =>
-                      setPendingDelete({ type: "turn", turnIndex: i })
-                    }
+                    onClick={() => onEditUser(i, row.user.content)}
                     className="icon-btn h-7 w-7 accent-focus"
-                    title="Delete this turn"
+                    title="Edit message"
                   >
-                    <Trash size={12} />
+                    <Pencil size={14} />
                   </button>
                   <button
-                    onClick={() => {
-                      const all = selectedModels
-                        .filter((m) => !collapsedIds.includes(m.id))
-                        .map((m) => {
-                          const ans = row.answers.find(
-                            (a) => a.modelId === m.id
-                          );
-                          const header = m.label;
-                          const body = sanitizeContent(ans?.content ?? "");
-                          return `## ${header}\n${body}`;
-                        })
-                        .join("\n\n");
-                      copyToClipboard(all);
-                      setCopiedAllIdx(i);
-                      window.setTimeout(() => setCopiedAllIdx(null), 1200);
-                    }}
-                    className={`icon-btn h-7 w-7 transition-all ${
-                      copiedAllIdx === i
-                        ? "bg-emerald-500/15 border-emerald-300/30 text-emerald-100"
-                        : ""
-                    } accent-focus`}
-                    title="Copy all model responses for this prompt"
+                    onClick={() => onDeleteUser(i)}
+                    className="icon-btn h-7 w-7 accent-focus"
+                    title="Delete message"
                   >
-                    {copiedAllIdx === i ? (
-                      <Check size={12} />
-                    ) : (
-                      <CopyIcon size={12} />
-                    )}
+                    <Trash size={14} />
+                  </button>
+                  <button
+                    onClick={() => copyToClipboard(row.user.content)}
+                    className="icon-btn h-7 w-7 accent-focus"
+                    title="Copy message"
+                  >
+                    <CopyIcon size={14} />
                   </button>
                 </div>
               </div>
+
               <div
                 className="grid gap-3 items-stretch"
                 style={{ gridTemplateColumns: headerCols }}

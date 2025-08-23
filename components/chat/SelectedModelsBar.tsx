@@ -37,12 +37,12 @@ export default function SelectedModelsBar({ selectedModels, onToggle }: Props) {
             <button
               key={m.id}
               onClick={() => onToggle(m.id)}
-              className={`model-chip text-white ${
+              className={`model-chip text-black dark:text-white ${
                 m.good
                   ? "model-chip-pro"
                   : isFree
                   ? "model-chip-free"
-                  : "border-white/10"
+                  : "border-black/10 dark:border-white/10"
               }`}
               data-selected={true}
               data-type={m.good ? "pro" : isFree ? "free" : "other"}
@@ -61,8 +61,8 @@ export default function SelectedModelsBar({ selectedModels, onToggle }: Props) {
                 </span>
               )}
               {isUncensored && (
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-200 ring-1 ring-rose-300/30">
-                  <span className="h-2 w-2 rounded-full bg-rose-200" />
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-700 dark:text-rose-200 ring-1 ring-rose-300/30">
+                  <span className="h-2 w-2 rounded-full bg-rose-700 dark:bg-rose-200" />
                   <span className="hidden sm:inline">Uncensored</span>
                 </span>
               )}
@@ -78,7 +78,7 @@ export default function SelectedModelsBar({ selectedModels, onToggle }: Props) {
           );
         })}
         {selectedModels.length === 0 && (
-          <span className="text-xs text-zinc-400">No models selected</span>
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">No models selected</span>
         )}
       </div>
       {/* Actions removed (moved to header) */}

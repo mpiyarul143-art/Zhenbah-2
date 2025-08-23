@@ -10,6 +10,7 @@ import { ChatMessage, ApiKeys, ChatThread } from "@/lib/types";
 import { createChatActions } from "@/lib/chatActions";
 import { useProjects } from "@/lib/useProjects";
 import ModelsModal from "@/components/modals/ModelsModal";
+import VoiceSelector from "@/components/modals/VoiceSelector";
 import FirstVisitNote from "@/components/app/FirstVisitNote";
 import FixedInputBar from "@/components/chat/FixedInputBar";
 import ThreadSidebar from "@/components/chat/ThreadSidebar";
@@ -51,6 +52,10 @@ export default function Home() {
   );
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [modelsModalOpen, setModelsModalOpen] = useState(false);
+  const [selectedVoice, setSelectedVoice] = useLocalStorage<string>(
+    "ai-fiesta:selected-voice",
+    "alloy"
+  );
 
   const [customModels] = useCustomModels();
   const allModels = useMemo(() => mergeModels(customModels), [customModels]);
@@ -151,7 +156,7 @@ export default function Home() {
   };
 
   // Chat actions (send and onEditUser) moved to lib/chatActions.ts to avoid state races
-  const { send, onEditUser } = useMemo(
+  const { send, onEditUser, onDeleteUser, onDeleteAnswer } = useMemo(
     () =>
       createChatActions({
         selectedModels,
@@ -163,6 +168,7 @@ export default function Home() {
         setLoadingIds: (updater) => setLoadingIds(updater),
         setLoadingIdsInit: (ids) => setLoadingIds(ids),
         activeProject, // include project system prompt/context
+        selectedVoice,
       }),
     [
       selectedModels,
@@ -172,6 +178,7 @@ export default function Home() {
       setThreads,
       setActiveId,
       activeProject,
+      selectedVoice,
     ]
   );
 
@@ -283,6 +290,16 @@ export default function Home() {
             {/* Selected models row + actions */}
             <SelectedModelsBar selectedModels={selectedModels} onToggle={toggle} />
 
+            {/* Voice selector for audio models */}
+            {isHydrated && selectedModels.some((m) => m.category === "audio") && (
+              <div className="mb-3 px-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-zinc-500 dark:text-zinc-400">Voice:</span>
+                  <VoiceSelector selectedVoice={selectedVoice} onVoiceChange={setSelectedVoice} />
+                </div>
+              </div>
+            )}
+
             <ModelsModal
               open={modelsModalOpen}
               onClose={() => setModelsModalOpen(false)}
@@ -324,6 +341,8 @@ export default function Home() {
                   copiedKey={copiedKey}
                   setCopiedKey={setCopiedKey}
                   onEditUser={onEditUser}
+                  onDeleteUser={onDeleteUser}
+                  onDeleteAnswer={onDeleteAnswer}
                 />
               )}
             </ClientOnly>
