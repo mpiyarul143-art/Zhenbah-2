@@ -22,9 +22,9 @@ type Props = {
 export default function HeaderBar({
   onOpenMenu,
   title = "Open Fiesta",
-  authorName = "Niladri",
-  authorImageSrc = "/image.png",
-  authorLink = "https://x.com/byteHumi",
+  authorName = "Xenonesis",
+  authorImageSrc = "https://github.com/Xenonesis.png",
+  authorLink = "https://github.com/Xenonesis",
   githubOwner,
   githubRepo,
   className,
@@ -49,7 +49,7 @@ export default function HeaderBar({
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-xs text-zinc-300 hover:text-white"
-          title={`Open ${authorName} on X`}
+          title={`Open ${authorName} on GitHub`}
         >
           <Image
             src={authorImageSrc}
@@ -59,7 +59,7 @@ export default function HeaderBar({
             className="h-5 w-5 rounded-full object-cover"
           />
           <span className="opacity-90 hidden sm:inline text-sm">
-            Made by{" "}
+            Made with ❤️ by{" "}
             <span className="font-semibold underline decoration-dotted">
               {authorName}
             </span>
