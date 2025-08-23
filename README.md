@@ -1,73 +1,111 @@
-# Open-Fiesta
+<div align="center">
+  <img src="./public/osfiesta.png" alt="Open Fiesta Banner" width="800"/>
+</div>
 
-<video controls poster="./public/osfiesta.png" width="800">
-  <source src="./public/OSFiesta.mp4" type="video/mp4" />
-  <a href="./public/OSFiesta.mp4">
-    <img src="./public/osfiesta.png" alt="Open-Fiesta preview" />
+<h1 align="center">Open Fiesta</h1>
+
+<p align="center">
+  The ultimate open-source playground for comparing multiple AI models side-by-side
+</p>
+
+<p align="center">
+  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/stargazers">
+    <img src="https://img.shields.io/github/stars/Xenonesis/Open-Fiesta-Clone" alt="GitHub Stars">
   </a>
-  Your browser does not support the video tag.
-</video>
+  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/issues">
+    <img src="https://img.shields.io/github/issues/Xenonesis/Open-Fiesta-Clone" alt="GitHub Issues">
+  </a>
+  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/Xenonesis/Open-Fiesta-Clone" alt="License">
+  </a>
+  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/pulls">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
+  </a>
+</p>
 
-<!-- Fallback link for renderers that don't support <video> -->
-[![Open-Fiesta](public/osfiesta.png)](public/OSFiesta.mp4)
+<div align="center">
+  <video controls poster="./public/osfiesta.png" width="800">
+    <source src="./public/OSFiesta.mp4" type="video/mp4" />
+    <a href="./public/OSFiesta.mp4">
+      <img src="./public/osfiesta.png" alt="Open-Fiesta preview" />
+    </a>
+    Your browser does not support the video tag.
+  </video>
+</div>
 
-An open-source, multi-model AI chat playground built with Next.js App Router. Switch between providers and models, compare outputs side-by-side, and use optional web search and image attachments.
+## 🎯 What is Open Fiesta?
 
-## Features
+Open Fiesta is a cutting-edge, open-source AI playground that allows you to experiment with and compare multiple AI models side-by-side. Unlike traditional chat interfaces, Open Fiesta enables you to run up to 5 different AI models simultaneously, compare their outputs, and find the best response for your specific needs.
 
-- **Multiple providers**: Gemini, OpenRouter (DeepSeek R1, Llama 3.3, Qwen, Mistral, Moonshot, Reka, Sarvam, etc.)
-- **Selectable model catalog**: choose up to 5 models to run
-- **Web search toggle** per message
-- **Image attachment** support (Gemini)
-- **Clean UI**: keyboard submit, streaming-friendly API normalization
+Built with Next.js 15, TypeScript, and Tailwind CSS, Open Fiesta provides a modern, responsive interface with real-time streaming capabilities and a clean, intuitive UI.
 
-## Tech Stack
+## ✨ Key Features
 
-- Next.js 14 (App Router, TypeScript)
-- Tailwind CSS
-- API routes for provider calls
-- Docker containerization support
+### Multi-Model Comparison
+- Compare outputs from up to 5 different AI models simultaneously
+- Supports a wide range of providers including Gemini, OpenRouter, and more
+- Easily identify the best response for your specific use case
 
-## Quick Start
+### Extensive Model Support
+- **Gemini Models**: Gemini 2.5 Pro, Gemini 2.5 Flash
+- **OpenRouter Models**: 
+  - DeepSeek R1 (free)
+  - Llama 3.3 70B Instruct (free)
+  - Qwen 2.5 72B Instruct (free)
+  - Mistral Small 24B Instruct 2501 (free)
+  - Moonshot Kimi K2 (free)
+  - Reka Flash 3 (free)
+  - GLM 4.5 Air (free/paid)
+  - And many more...
+
+### Advanced Capabilities
+- **Web Search Integration**: Toggle web search per message for real-time information
+- **Image Attachment Support**: Upload and analyze images with compatible models
+- **Real-time Streaming**: Experience blazing-fast responses with normalized APIs
+- **Project Organization**: Organize conversations into projects with custom system prompts
+- **Clean UI**: Keyboard shortcuts, responsive design, and intuitive interface
+
+### Developer-Friendly
+- **Self-Hostable**: Fully open-source and customizable
+- **Docker Support**: Comprehensive containerization for easy deployment
+- **API Normalization**: Consistent responses across different providers
+- **Post-Processing**: Automatic cleanup of model-specific formatting
+
+## 🚀 Quick Start
 
 ### Option 1: Traditional Development
 
-1. Install deps
-
+1. Install dependencies:
 ```bash
-npm i
+npm install
 ```
 
-2. Configure environment
-   Create `.env.local` with the keys you plan to use:
-
+2. Configure environment variables:
+Create a `.env.local` file with your API keys:
 ```bash
 # OpenRouter (recommended for most free models)
-OPENROUTER_API_KEY=...
+OPENROUTER_API_KEY=your_openrouter_api_key
 
 # Gemini (for Gemini models and image input)
-GOOGLE_GENERATIVE_AI_API_KEY=...
+GOOGLE_GENERATIVE_AI_API_KEY=your_google_api_key
 ```
 
-3. Run dev server
-
+3. Run the development server:
 ```bash
 npm run dev
-# open http://localhost:3000
+# Open http://localhost:3000 in your browser
 ```
 
 ### Option 2: Docker Development
 
-1. Build and run with Docker Compose (recommended for development):
-
+1. Development with Docker Compose (recommended):
 ```bash
 npm run docker:dev
 # or
 docker-compose up ai_fiesta_dev
 ```
 
-2. For production build with Docker:
-
+2. Production build with Docker:
 ```bash
 npm run docker:build
 npm run docker:run
@@ -88,106 +126,120 @@ docker run -p 3000:3000 -e OPENROUTER_API_KEY=your_key_here ai_fiesta
 docker run -p 3000:3000 --env-file .env.local ai_fiesta
 ```
 
-## Environment Variables
+## 🛠️ Tech Stack
 
-- `OPENROUTER_API_KEY`: API key from https://openrouter.ai (required for OpenRouter models)
-- `GOOGLE_GENERATIVE_AI_API_KEY`: API key from Google AI Studio (required for Gemini models)
+- **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS
+- **UI Components**: shadcn/ui, Lucide React Icons
+- **Backend**: Next.js API Routes
+- **State Management**: React Context API
+- **Styling**: Tailwind CSS with custom themes
+- **Deployment**: Docker, Vercel-ready
+- **Additional Libraries**: Framer Motion, React Toastify
 
-You can also provide an API key at runtime in the UI's Settings panel.
+## 🏗️ Project Structure
 
-## Docker Support
+```
+app/
+├── api/                 # API routes for different providers
+│   ├── gemini/          # Gemini provider integration
+│   └── openrouter/      # OpenRouter provider integration
+├── chat/                # Chat interface
+└── ...                  # Other Next.js app routes
 
-This project includes comprehensive Docker support for both development and production:
+components/
+├── app/                 # Main application components
+├── chat/                # Chat-specific components
+├── ui/                  # Reusable UI components (shadcn/ui)
+└── ...                  # Other component categories
+
+lib/
+├── models.ts            # Model catalog and configuration
+├── themeContext.ts      # Theme management
+└── ...                  # Utility functions and helpers
+
+public/                  # Static assets
+```
+
+## 🌐 Supported Providers
+
+| Provider | Models | Features |
+|---------|--------|----------|
+| **Google Gemini** | Gemini 2.5 Pro, Flash | Image input, fast responses |
+| **OpenRouter** | 20+ models including: | Free tiers, wide selection |
+| | - DeepSeek R1 | Reasoning capabilities |
+| | - Llama 3.3 70B | High-quality responses |
+| | - Qwen 2.5 72B | Multilingual support |
+| | - Mistral Small | Efficient performance |
+| | - And many more... | |
+
+## 🔧 Environment Variables
+
+| Variable | Description | Required |
+|---------|-------------|----------|
+| `OPENROUTER_API_KEY` | API key from [OpenRouter](https://openrouter.ai) | For OpenRouter models |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | API key from [Google AI Studio](https://aistudio.google.com) | For Gemini models |
+
+You can also provide API keys at runtime through the UI's Settings panel.
+
+## 🐳 Docker Support
+
+Open Fiesta includes comprehensive Docker support for both development and production:
 
 ### Development
-
 - Hot reload enabled for instant code changes
 - Volume mounting for live code updates
 - Includes all development dependencies
 
 ### Production
-
 - Multi-stage build for optimized image size (~100MB)
-- Proper security practices with non-root user
+- Security best practices with non-root user
 - Environment variable configuration support
 
 ### Available Docker Commands
+```bash
+npm run docker:build    # Build production Docker image
+npm run docker:run      # Run production container
+npm run docker:dev      # Start development environment with Docker Compose
+npm run docker:prod     # Start production environment with Docker Compose
+```
 
-- `npm run docker:build` - Build production Docker image
-- `npm run docker:run` - Run production container
-- `npm run docker:dev` - Start development environment with Docker Compose
-- `npm run docker:prod` - Start production environment with Docker Compose
+## 🤝 Contributing
 
-## Project Structure
+We welcome contributions of all kinds! Here's how you can help:
 
-- `app/` – UI and API routes
-  - `api/openrouter/route.ts` – normalizes responses across OpenRouter models; strips reasoning, cleans up DeepSeek R1 to plain text
-  - `api/gemini/route.ts`, `api/gemini-pro/route.ts`
-- `components/` – UI components (chat box, model selector, etc.)
-- `lib/` – model catalog and client helpers
-- `Dockerfile` – Production container definition
-- `Dockerfile.dev` – Development container definition
-- `docker-compose.yml` – Multi-container setup
-- `.dockerignore` – Files to exclude from Docker builds
+1. **Fork** the repository
+2. Create a **feature branch** (`git checkout -b feat/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feat/amazing-feature`)
+5. Open a **Pull Request**
 
-## Notes on DeepSeek R1
+### Development Guidelines
+- Follow TypeScript best practices
+- Maintain consistent code style with ESLint
+- Write clear, descriptive commit messages
+- Test your changes thoroughly
+- Update documentation as needed
 
-Open-Fiesta post-processes DeepSeek R1 outputs to remove reasoning tags and convert Markdown to plain text for readability while preserving content.
+## 📄 License
 
-## Contributing
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-We welcome contributions of all kinds: bug fixes, features, docs, and examples.
+## 🙏 Acknowledgements
 
-- **Set up**
+- Model access via [OpenRouter](https://openrouter.ai) and [Google AI](https://ai.google.com)
+- UI components from [shadcn/ui](https://ui.shadcn.com)
+- Icons from [Lucide](https://lucide.dev)
+- Inspired by the need for better AI model comparison tools
 
-  - Fork this repo and clone your fork.
-  - Start the dev server with `npm run dev`.
+## 📬 Support
 
-- **Branching**
+If you encounter any issues or have questions:
+- Check [existing issues](https://github.com/Xenonesis/Open-Fiesta-Clone/issues) 
+- [Open a new issue](https://github.com/Xenonesis/Open-Fiesta-Clone/issues/new) for bug reports or feature requests
+- Feel free to reach out to the maintainer at [Xenonesis](https://github.com/Xenonesis)
 
-  - Create a feature branch from `main`: `feat/<short-name>` or `fix/<short-name>`.
+---
 
-- **Coding standards**
-
-  - TypeScript, Next.js App Router.
-  - Run linters and build locally:
-    - `npm run lint`
-    - `npm run build`
-  - Keep changes focused and small. Prefer clear names and minimal dependencies.
-
-- **UI/UX**
-
-  - Reuse components in `components/` where possible.
-  - Keep props typed and avoid unnecessary state.
-
-- **APIs & models**
-
-  - OpenRouter logic lives in `app/api/openrouter/`.
-  - Gemini logic lives in `app/api/gemini/` and `app/api/gemini-pro/`.
-  - If adding models/providers, update `lib/models.ts` or `lib/customModels.ts` and ensure the UI reflects new options.
-
-- **Docker changes**
-
-  - When modifying dependencies, ensure both `Dockerfile` and `Dockerfile.dev` are updated if needed
-  - Test both development and production Docker builds
-
-- **Commit & PR**
-
-  - Write descriptive commits (imperative mood): `fix: …`, `feat: …`, `docs: …`.
-  - Open a PR to `main` with:
-    - What/why, screenshots if UI changes, and testing notes.
-    - Checklist confirming `npm run lint` and `npm run build` pass.
-    - Test both traditional and Docker setups if applicable.
-  - Link related issues if any.
-
-- **Issue reporting**
-
-Thank you for helping improve Open‑Fiesta!
-
-## License
-
-This project is licensed under the MIT License. See `LICENSE` for details.
-
-## Acknowledgements
-
-- Model access via OpenRouter and Google
+<div align="center">
+  Made with ❤️ by <a href="https://github.com/Xenonesis">Xenonesis</a>
+</div>

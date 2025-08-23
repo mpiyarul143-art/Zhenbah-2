@@ -21,7 +21,7 @@ export default function NotFound() {
             Go back home
           </Link>
           <Link
-            href="/"
+            href="/chat"
             className="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-100 hover:bg-emerald-500/15"
           >
             Start a new chat
