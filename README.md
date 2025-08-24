@@ -39,20 +39,7 @@
 
 </div>
 
-<p align="center">
-  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/stargazers">
-    <img src="https://img.shields.io/github/stars/Xenonesis/Open-Fiesta-Clone" alt="GitHub Stars">
-  </a>
-  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/issues">
-    <img src="https://img.shields.io/github/issues/Xenonesis/Open-Fiesta-Clone" alt="GitHub Issues">
-  </a>
-  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/Xenonesis/Open-Fiesta-Clone" alt="License">
-  </a>
-  <a href="https://github.com/Xenonesis/Open-Fiesta-Clone/pulls">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
-  </a>
-</p>
+
 
 <div align="center">
   <video controls poster="./public/osfiesta.png" width="800">
@@ -464,8 +451,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📬 Support
 
 If you encounter any issues or have questions:
-- Check [existing issues](https://github.com/Xenonesis/Open-Fiesta-Clone/issues) 
-- [Open a new issue](https://github.com/Xenonesis/Open-Fiesta-Clone/issues/new) for bug reports or feature requests
+- Check [existing issues](https://github.com/Xenonesis/ModelArena/issues)
+- [Open a new issue](https://github.com/Xenonesis/ModelArena/issues/new) for bug reports and feature requests
+- [Join our discussions](https://github.com/Xenonesis/ModelArena/discussions) for community support
 - Feel free to reach out to the maintainer at [Xenonesis](https://github.com/Xenonesis)
 
 ---
