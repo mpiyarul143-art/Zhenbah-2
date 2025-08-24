@@ -137,25 +137,21 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
             try {
               await loadGoogleFont(validatedTheme.font);
             } catch (error) {
-              if (process.env.NODE_ENV === 'development') {
-                console.warn('Failed to load initial font:', error);
-              }
+              console.warn('Failed to load initial font:', error);
             }
           }
 
           // Apply the theme BEFORE setting state to avoid triggering the other effect
           applyTheme(validatedTheme);
 
-          if (enableLogging && process.env.NODE_ENV === 'development') {
+          if (enableLogging) {
             logThemeInfo(validatedTheme);
           }
 
           // Set theme and mark as initialized - this will NOT trigger the apply effect
           setTheme(validatedTheme);
         } catch (error) {
-          if (process.env.NODE_ENV === 'development') {
-            console.error('Failed to initialize theme:', error);
-          }
+          console.error('Failed to initialize theme:', error);
           // Fallback to default theme
           applyTheme(DEFAULT_THEME);
           setTheme(DEFAULT_THEME);

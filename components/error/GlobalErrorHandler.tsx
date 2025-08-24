@@ -32,18 +32,15 @@ export default function GlobalErrorHandler({ children }: GlobalErrorHandlerProps
 
       // Ignore errors that bubble from window without a concrete target
       if (!target || target === window) {
+        console.error('Resource loading error (no target):', event);
         return;
       }
 
       try {
         if (target instanceof HTMLImageElement) {
-          // Only log if there's actually an error with the image source and it's not an external CDN
+          // Only log if there's actually an error with the image source
           const src = target.currentSrc || target.src;
           if (src && src.trim() !== '') {
-            // Don't log errors for external CDN images or images with explicit error handling
-            if (src.includes('cdn.') || src.includes('external') || target.hasAttribute('data-ignore-errors') || target.onError) {
-              return;
-            }
             console.error('Resource loading error: IMG', {
               src: src,
               alt: target.alt || 'No alt text',

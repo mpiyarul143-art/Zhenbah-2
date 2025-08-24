@@ -6,7 +6,6 @@ import type { Project } from '@/lib/projects';
 import ConfirmDialog from '@/components/modals/ConfirmDialog';
 import ProjectsSection from '@/components/app/ProjectsSection';
 import DownloadMenu from './DownloadMenu';
-import ShareButton from "@/components/chat/ShareButton";
 import { useTheme } from '@/lib/themeContext';
 import { ACCENT_COLORS } from '@/lib/themes';
 
@@ -135,10 +134,6 @@ export default function ThreadSidebar({
                       {t.title || 'Untitled'}
                     </button>
                     <div className="flex items-center gap-1">
-                      <ShareButton 
-                        thread={t}
-                        projectName={projects.find(p => p.id === t.projectId)?.name}
-                      />
                       <DownloadMenu thread={t} selectedModels={selectedModels} />
                       <button
                         aria-label="Delete chat"
@@ -274,10 +269,6 @@ export default function ThreadSidebar({
                     {t.title || 'Untitled'}
                   </button>
                   <div className="flex items-center gap-1">
-                    <ShareButton 
-                      thread={t}
-                      projectName={projects.find(p => p.id === t.projectId)?.name}
-                    />
                     <DownloadMenu thread={t} selectedModels={selectedModels} />
                     <button
                       aria-label="Delete chat"

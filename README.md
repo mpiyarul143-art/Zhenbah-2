@@ -20,7 +20,6 @@ An open-source, multi-model AI chat playground built with Next.js App Router. Sw
 - **Selectable model catalog**: choose up to 5 models to run
 - **Web search toggle** per message
 - **Image attachment** support (Gemini)
-- **Conversation sharing**: Share conversations with shareable links
 - **Clean UI**: keyboard submit, streaming-friendly API normalization
 
 ## Tech Stack
@@ -103,11 +102,8 @@ This project includes comprehensive Docker support for both development and prod
 - `app/` – UI and API routes
   - `api/openrouter/route.ts` – normalizes responses across OpenRouter models; strips reasoning, cleans up DeepSeek R1 to plain text
   - `api/gemini/route.ts`, `api/gemini-pro/route.ts`
-  - `shared/[encodedData]/` – shared conversation viewer
 - `components/` – UI components (chat box, model selector, etc.)
-  - `shared/` – components for shared conversation display
 - `lib/` – model catalog and client helpers
-  - `sharing/` – conversation sharing utilities
 - `Dockerfile` – Production container definition
 - `Dockerfile.dev` – Development container definition
 - `docker-compose.yml` – Multi-container setup

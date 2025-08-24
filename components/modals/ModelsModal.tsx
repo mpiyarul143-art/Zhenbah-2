@@ -160,10 +160,6 @@ export default function ModelsModal({
             src={iconUrl}
             alt={iconAlt || title}
             className="h-4 w-4 object-contain opacity-90"
-            data-ignore-errors="true"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = 'none';
-            }}
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = 'none';
             }}

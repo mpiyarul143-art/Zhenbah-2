@@ -1,93 +1,13 @@
-# Dependencies
 **/node_modules
-**/npm-debug.log*
-**/yarn-debug.log*
-**/yarn-error.log*
-**/pnpm-debug.log*
-
-# Build outputs
 **/.next
 **/dist
 **/build
-**/out
-
-# Docker files
-Dockerfile*
+Dockerfile
 .dockerignore
-docker-compose*.yml
-
-# Version control
 .git
 .gitignore
-.gitattributes
-
-# Documentation
 README.md
 *.md
-CHANGELOG.md
-LICENSE
-
-# IDE and editor files
-.vscode
-.idea
-*.swp
-*.swo
-*~
-
-# OS generated files
+**/*.log
 **/.DS_Store
 **/Thumbs.db
-**/.directory
-
-# Logs
-**/*.log
-**/logs
-
-# Runtime data
-**/pids
-**/*.pid
-**/*.seed
-**/*.pid.lock
-
-# Coverage directory used by tools like istanbul
-**/coverage
-**/.nyc_output
-
-# Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Testing
-**/__tests__
-**/test
-**/*.test.*
-**/*.spec.*
-**/jest.config.*
-**/jest.setup.*
-**/tsconfig.jest.json
-
-# Temporary folders
-**/tmp
-**/temp
-
-# Cache directories
-**/.cache
-**/tsconfig.tsbuildinfo
-
-# Monitoring and deployment
-**/monitoring
-**/scripts
-**/docs
-**/theme_system
-
-# Development and IDE
-**/.kiro
-**/.vscode
-**/.github
-**/README.Docker.md
-**/docker-compose.prod.yml
-**/Dockerfile.ci
-**/Dockerfile.dev

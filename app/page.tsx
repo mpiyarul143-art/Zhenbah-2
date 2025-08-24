@@ -205,12 +205,6 @@ export default function Home() {
       <div className="absolute inset-0 z-0 pointer-events-none opacity-95" />
 
       <div className="relative z-10 px-3 lg:px-4 py-4 lg:py-6">
-        {/* Production debugging info */}
-        {process.env.NODE_ENV === 'production' && (
-          <div className="mb-4 text-xs text-black/40 dark:text-white/40">
-            Environment: {process.env.NODE_ENV} | Hydrated: {isHydrated ? 'Yes' : 'No'}
-          </div>
-        )}
         <div className="flex gap-3 lg:gap-4">
           {/* Sidebar */}
           <ThreadSidebar
