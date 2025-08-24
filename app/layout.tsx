@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OpenSource Fiesta",
-  description: "Compare and chat with multiple open models",
+  title: "ModelArena",
+  description: "Compare and chat with multiple AI models side-by-side",
 };
 
 export const viewport: Viewport = {

@@ -238,7 +238,7 @@ export default function ChatPage() {
             {/* Top bar */}
             <HeaderBar
               onOpenMenu={() => setMobileSidebarOpen(true)}
-              title="Open Fiesta"
+              title="ModelArena"
               authorName="Xenonesis"
               authorImageSrc="https://github.com/Xenonesis.png"
               authorLink="https://github.com/Xenonesis"

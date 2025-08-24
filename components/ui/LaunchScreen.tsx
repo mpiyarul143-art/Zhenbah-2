@@ -10,7 +10,7 @@ interface LaunchScreenProps {
 
 export default function LaunchScreen({
   backgroundClass,
-  title = "Open Fiesta",
+  title = "ModelArena",
   subtitle = "Warming things up…",
   logoSrc = "/brand.png",
   dismissed = false,

@@ -118,7 +118,7 @@ export default function LandingPage() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
             <MessageSquare className="w-5 h-5 text-white" />
           </div>
-          <span className="text-xl font-bold">Open Fiesta</span>
+          <span className="text-xl font-bold">ModelArena</span>
         </Link>
         <div className="flex items-center space-x-4">
           <ThemeToggle />
@@ -192,11 +192,11 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto pb-20">
           <div className={`text-center mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'}`}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Why Choose 
-              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> Open Fiesta</span>?
+              Why Choose
+              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> ModelArena</span>?
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Discover the features that make Open Fiesta the perfect playground for AI experimentation and comparison.
+              Discover the features that make ModelArena the perfect playground for AI experimentation and comparison.
             </p>
           </div>
 
@@ -214,7 +214,7 @@ export default function LandingPage() {
               Ready to Start Exploring?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Join thousands of developers, researchers, and AI enthusiasts who are already using Open Fiesta 
+              Join thousands of developers, researchers, and AI enthusiasts who are already using ModelArena
               to compare and experiment with cutting-edge AI models.
             </p>
             <Link 
@@ -234,7 +234,7 @@ export default function LandingPage() {
               <div className="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                 <MessageSquare className="w-4 h-4 text-white" />
               </div>
-              <span className="font-semibold">Open Fiesta</span>
+              <span className="font-semibold">ModelArena</span>
             </div>
             <div className="flex items-center space-x-6 text-gray-400">
               <a href="https://github.com/Xenonesis/Open-Fiesta-Clone" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">

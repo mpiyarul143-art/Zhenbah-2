@@ -1,8 +1,8 @@
 <div align="center">
-  <img src="./public/osfiesta.png" alt="Open Fiesta Banner" width="800"/>
+  <img src="./public/osfiesta.png" alt="ModelArena Banner" width="800"/>
 </div>
 
-<h1 align="center">Open Fiesta</h1>
+<h1 align="center">ModelArena</h1>
 
 <p align="center">
   The ultimate open-source playground for comparing multiple AI models side-by-side
@@ -27,17 +27,17 @@
   <video controls poster="./public/osfiesta.png" width="800">
     <source src="./public/OSFiesta.mp4" type="video/mp4" />
     <a href="./public/OSFiesta.mp4">
-      <img src="./public/osfiesta.png" alt="Open-Fiesta preview" />
+      <img src="./public/osfiesta.png" alt="ModelArena preview" />
     </a>
     Your browser does not support the video tag.
   </video>
 </div>
 
-## 🎯 What is Open Fiesta?
+## 🎯 What is ModelArena?
 
-Open Fiesta is a cutting-edge, open-source AI playground that allows you to experiment with and compare multiple AI models side-by-side. Unlike traditional chat interfaces, Open Fiesta enables you to run up to 5 different AI models simultaneously, compare their outputs, and find the best response for your specific needs.
+ModelArena is a cutting-edge, open-source AI playground that allows you to experiment with and compare multiple AI models side-by-side. Unlike traditional chat interfaces, ModelArena enables you to run up to 5 different AI models simultaneously, compare their outputs, and find the best response for your specific needs.
 
-Built with Next.js 15, TypeScript, and Tailwind CSS, Open Fiesta provides a modern, responsive interface with real-time streaming capabilities and a clean, intuitive UI.
+Built with Next.js 15, TypeScript, and Tailwind CSS, ModelArena provides a modern, responsive interface with real-time streaming capabilities and a clean, intuitive UI.
 
 ## ✨ Key Features
 
@@ -183,7 +183,7 @@ You can also provide API keys at runtime through the UI's Settings panel.
 
 ## 🐳 Docker Support
 
-Open Fiesta includes comprehensive Docker support for both development and production:
+ModelArena includes comprehensive Docker support for both development and production:
 
 ### Development
 - Hot reload enabled for instant code changes

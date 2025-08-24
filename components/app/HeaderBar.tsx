@@ -21,7 +21,7 @@ type Props = {
 
 export default function HeaderBar({
   onOpenMenu,
-  title = "Open Fiesta",
+  title = "ModelArena",
   authorName = "Xenonesis",
   authorImageSrc = "https://github.com/Xenonesis.png",
   authorLink = "https://github.com/Xenonesis",

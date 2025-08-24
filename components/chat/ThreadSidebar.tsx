@@ -68,7 +68,7 @@ export default function ThreadSidebar({
         >
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full accent-dot accent-beacon accent-dot-pulse" />
-            <h2 className="text-sm font-semibold">Open Fiesta</h2>
+            <h2 className="text-sm font-semibold">ModelArena</h2>
           </div>
         </div>
 
@@ -195,7 +195,7 @@ export default function ThreadSidebar({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full accent-dot accent-beacon accent-dot-pulse" />
-                <h2 className="text-sm font-semibold">Open Fiesta</h2>
+                <h2 className="text-sm font-semibold">ModelArena</h2>
               </div>
               <button
                 aria-label="Close"
