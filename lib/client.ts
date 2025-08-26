@@ -1,185 +1,238 @@
-import { ChatMessage } from './types';
+import { ChatMessage } from "./types";
 
 export async function callGemini(args: {
-  apiKey?: string;
-  model: string;
-  messages: ChatMessage[];
-  imageDataUrl?: string;
-  signal?: AbortSignal;
+	apiKey?: string;
+	model: string;
+	messages: ChatMessage[];
+	imageDataUrl?: string;
+	signal?: AbortSignal;
 }) {
-  const endpoint = args.model === 'gemini-2.5-pro' ? '/api/gemini-pro' : '/api/gemini';
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
-    signal: args.signal,
-  });
-  return res.json();
+	const endpoint =
+		args.model === "gemini-2.5-pro" ? "/api/gemini-pro" : "/api/gemini";
+	const res = await fetch(endpoint, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(args),
+		signal: args.signal,
+	});
+	return res.json();
 }
 
 export async function callOpenRouter(args: {
-  apiKey?: string;
-  model: string;
-  messages: ChatMessage[];
-  imageDataUrl?: string;
-  signal?: AbortSignal;
+	apiKey?: string;
+	model: string;
+	messages: ChatMessage[];
+	imageDataUrl?: string;
+	signal?: AbortSignal;
 }) {
-  const res = await fetch('/api/openrouter', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      ...args,
-      referer: typeof window !== 'undefined' ? window.location.origin : undefined,
-      title: 'AI Fiesta',
-    }),
-    signal: args.signal,
-  });
-  return res.json();
+	const res = await fetch("/api/openrouter", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			...args,
+			referer:
+				typeof window !== "undefined" ? window.location.origin : undefined,
+			title: "AI Fiesta",
+		}),
+		signal: args.signal,
+	});
+	return res.json();
 }
 
 export async function callOpenProvider(args: {
-  apiKey?: string;
-  model: string;
-  messages: ChatMessage[];
-  imageDataUrl?: string;
-  voice?: string;
+	apiKey?: string;
+	model: string;
+	messages: ChatMessage[];
+	imageDataUrl?: string;
+	voice?: string;
 }) {
-  const res = await fetch('/api/open-provider', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
-  });
-  return res.json();
+	const res = await fetch("/api/open-provider", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(args),
+	});
+	return res.json();
 }
 
 export async function callUnstable(args: {
-  apiKey?: string;
-  model: string;
-  messages: ChatMessage[];
-  imageDataUrl?: string;
+	apiKey?: string;
+	model: string;
+	messages: ChatMessage[];
+	imageDataUrl?: string;
 }) {
-  const res = await fetch('/api/unstable', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
-  });
-  return res.json();
+	const res = await fetch("/api/unstable", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(args),
+	});
+	return res.json();
 }
 
 export async function callMistral(args: {
-  apiKey?: string;
-  model: string;
-  messages: ChatMessage[];
-  imageDataUrl?: string;
+	apiKey?: string;
+	model: string;
+	messages: ChatMessage[];
+	imageDataUrl?: string;
 }) {
-  const res = await fetch('/api/mistral', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
-  });
-  return res.json();
+	const res = await fetch("/api/mistral", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(args),
+	});
+	return res.json();
 }
 
 export async function callOllama(args: {
-  baseUrl?: string;
-  model: string;
-  messages: ChatMessage[];
-  signal?: AbortSignal;
+	baseUrl?: string;
+	model: string;
+	messages: ChatMessage[];
+	signal?: AbortSignal;
 }) {
-  const { signal, ...body } = args;
-  const res = await fetch('/api/ollama', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-    signal,
-  });
-  return res.json();
+	const { signal, ...body } = args;
+	const res = await fetch("/api/ollama", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(body),
+		signal,
+	});
+	return res.json();
 }
 
 export type ORStreamHandlers = {
-  onToken: (chunk: string) => void;
-  onMeta?: (meta: { provider?: string; usedKeyType?: 'user' | 'shared' | 'none' }) => void;
-  onError?: (err: {
-    error?: string;
-    code?: number;
-    provider?: string;
-    usedKeyType?: 'user' | 'shared' | 'none';
-  }) => void;
-  onDone?: () => void;
+	onToken: (chunk: string) => void;
+	onMeta?: (meta: {
+		provider?: string;
+		usedKeyType?: "user" | "shared" | "none";
+	}) => void;
+	onError?: (err: {
+		error?: string;
+		code?: number;
+		provider?: string;
+		usedKeyType?: "user" | "shared" | "none";
+	}) => void;
+	onDone?: () => void;
 };
 
 export async function streamOpenRouter(
-  args: {
-    apiKey?: string;
-    model: string;
-    messages: ChatMessage[];
-    imageDataUrl?: string;
-    signal?: AbortSignal;
-  },
-  handlers: ORStreamHandlers,
+	args: {
+		apiKey?: string;
+		model: string;
+		messages: ChatMessage[];
+		imageDataUrl?: string;
+		signal?: AbortSignal;
+	},
+	handlers: ORStreamHandlers,
 ) {
-  try {
-    const res = await fetch('/api/openrouter/stream', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...args,
-        referer: typeof window !== 'undefined' ? window.location.origin : undefined,
-        title: 'AI Fiesta',
-      }),
-      signal: args.signal,
-    });
-    if (!res.body) {
-      handlers.onError?.({ error: 'No stream body', code: res.status, provider: 'openrouter' });
-      handlers.onDone?.();
-      return;
-    }
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
-    const pump = async (): Promise<void> => {
-      const { value, done } = await reader.read();
-      if (done) {
-        handlers.onDone?.();
-        return;
-      }
-      buffer += decoder.decode(value, { stream: true });
-      const parts = buffer.split('\n\n');
-      buffer = parts.pop() || '';
-      for (const part of parts) {
-        const line = part.trim();
-        if (!line.startsWith('data:')) continue;
-        const payload = line.slice(5).trim();
-        if (payload === '[DONE]') {
-          handlers.onDone?.();
-          return;
-        }
-        try {
-          const json = JSON.parse(payload);
-          if (typeof json?.delta === 'string' && json.delta) handlers.onToken(json.delta);
-          if (json?.provider || json?.usedKeyType) handlers.onMeta?.(json);
-          if (json?.error)
-            handlers.onError?.({
-              error: json.error,
-              code: json.code,
-              provider: json.provider,
-              usedKeyType: json.usedKeyType,
-            });
-        } catch {
-          // ignore individual event parse errors
-        }
-      }
-      return pump();
-    };
-    await pump();
-  } catch (err) {
-    if (err instanceof DOMException && err.name === 'AbortError') {
-      // Abort is expected, no need to show an error.
-      handlers.onDone?.();
-      return;
-    }
-    const e = err as Error | undefined;
-    handlers.onError?.({ error: e?.message || 'Stream failed', provider: 'openrouter' });
-    handlers.onDone?.();
-  }
+	try {
+		const res = await fetch("/api/openrouter/stream", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				...args,
+				referer:
+					typeof window !== "undefined" ? window.location.origin : undefined,
+				title: "AI Fiesta",
+			}),
+			signal: args.signal,
+		});
+		if (!res.body) {
+			handlers.onError?.({
+				error: "No stream body",
+				code: res.status,
+				provider: "openrouter",
+			});
+			handlers.onDone?.();
+			return;
+		}
+		const reader = res.body.getReader();
+		const decoder = new TextDecoder();
+		let buffer = "";
+		const pump = async (): Promise<void> => {
+			const { value, done } = await reader.read();
+			if (done) {
+				handlers.onDone?.();
+				return;
+			}
+			buffer += decoder.decode(value, { stream: true });
+			const parts = buffer.split("\n\n");
+			buffer = parts.pop() || "";
+			for (const part of parts) {
+				const line = part.trim();
+				if (!line.startsWith("data:")) continue;
+				const payload = line.slice(5).trim();
+				if (payload === "[DONE]") {
+					handlers.onDone?.();
+					return;
+				}
+				try {
+					const json = JSON.parse(payload);
+					if (typeof json?.delta === "string" && json.delta)
+						handlers.onToken(json.delta);
+					if (json?.provider || json?.usedKeyType) handlers.onMeta?.(json);
+					if (json?.error)
+						handlers.onError?.({
+							error: json.error,
+							code: json.code,
+							provider: json.provider,
+							usedKeyType: json.usedKeyType,
+						});
+				} catch {
+					// ignore individual event parse errors
+				}
+			}
+			return pump();
+		};
+		await pump();
+	} catch (err) {
+		if (err instanceof DOMException && err.name === "AbortError") {
+			// Abort is expected, no need to show an error.
+			handlers.onDone?.();
+			return;
+		}
+		const e = err as Error | undefined;
+		handlers.onError?.({
+			error: e?.message || "Stream failed",
+			provider: "openrouter",
+		});
+		handlers.onDone?.();
+	}
+}
+
+export async function callMasterLLM(args: {
+	apiKey?: string;
+	responses: Array<{
+		modelId: string;
+		modelName: string;
+		content: string;
+		provider?: string;
+	}>;
+	originalQuery: string;
+	signal?: AbortSignal;
+}) {
+	const masterPrompt = `Analyze and rank these AI responses to the user query. Return ONLY a JSON array with rankings.
+
+Query: "${args.originalQuery}"
+
+Responses:
+${args.responses.map((r, i) => `${i + 1}. ${r.modelName}: ${r.content}`).join("\n\n")}
+
+Rank from best to worst based on accuracy, helpfulness, and relevance.
+Return ONLY this JSON format (no extra text):
+[
+  {"rank": 1, "modelId": "model_id", "modelName": "Model Name", "score": 95, "reason": "Brief explanation"},
+  {"rank": 2, "modelId": "model_id", "modelName": "Model Name", "score": 85, "reason": "Brief explanation"}
+]`;
+
+	const res = await fetch("/api/openrouter", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			apiKey: args.apiKey,
+			model: "moonshotai/kimi-k2:free", // Choose Master LLM model
+			messages: [{ role: "user", content: masterPrompt, ts: Date.now() }],
+			title: "AI Fiesta - Master LLM",
+		}),
+		signal: args.signal,
+	});
+	return res.json();
 }
