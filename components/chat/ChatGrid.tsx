@@ -191,23 +191,6 @@ export default function ChatGrid({
 									</div>
 								</div>
 
-								{/* Best Response Callout - Only show when we have rankings */}
-								{/* {hasRankings && ( */}
-								<div className="mb-3 p-3 rounded-lg bg-gradient-to-r from-yellow-500/10 via-amber-500/10 to-yellow-600/10 ring-1 ring-yellow-400/30 border border-yellow-500/20">
-									<div className="flex items-center gap-2 mb-2">
-										<Crown size={16} className="text-yellow-400" />
-										<span className="text-sm font-semibold text-yellow-300">
-											Master AI Ranked Responses
-										</span>
-									</div>
-									<div className="text-xs text-yellow-200/80 leading-relaxed">
-										Responses have been automatically ranked by our Master AI
-										based on quality, accuracy, and user preferences. The best
-										response is highlighted below.
-									</div>
-								</div>
-								{/* )} */}
-
 								<div
 									className="grid gap-3 items-stretch"
 									style={{ gridTemplateColumns: headerCols }}
