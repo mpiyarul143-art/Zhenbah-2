@@ -1,7 +1,7 @@
 'use client';
 import ConfirmDialog from '@/components/modals/ConfirmDialog';
 import type { AiModel, ChatMessage } from '@/lib/types';
-import { ChevronDown, ChevronUp, Eye, Loader2, Pencil, Star, Trash } from 'lucide-react';
+import { ChevronDown, ChevronUp, Eye, Loader2, Pencil, Save, Star, Trash, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import MarkdownLite from './MarkdownLite';
 import { CopyToClipboard } from '../ui/CopyToClipboard';
@@ -152,28 +152,83 @@ export default function ChatGrid({
                       You
                     </span>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm leading-relaxed text-black dark:text-white">
-                        {row.user.content}
-                      </div>
+                                            {editingIdx === i ? (
+                        <div className="space-y-2">
+                          <textarea
+                            value={draft}
+                            onChange={(e) => setDraft(e.target.value)}
+                            className="w-full min-h-[80px] p-2 text-sm bg-black/20 border border-white/20 rounded resize-none text-white placeholder-white/50 focus:outline-none focus:border-white/40"
+                            placeholder="Edit your message..."
+                            autoFocus
+                          />
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => {
+                                const next = draft.trim();
+                                const current = String(row.user.content ?? '').trim();
+                                if (next === current) {
+                                  setEditingIdx(null);
+                                  setDraft('');
+                                  return;
+                                }
+                                onEditUser(i, next);
+                                setEditingIdx(null);
+                                setDraft('');
+                              }}
+                              className="icon-btn h-7 w-7 accent-focus"
+                              title="Save changes"
+                              disabled={!draft.trim() || draft.trim() === String(row.user.content ?? '').trim()}
+                            >
+                              <Save size={14}/>
+                            </button>
+                            <button
+                              onClick={() => {
+                                setEditingIdx(null);
+                                setDraft('');
+                              }}
+                              className="icon-btn h-7 w-7 accent-focus"
+                              title="Cancel editing"
+                            >
+                              <X size={14}/>
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-sm leading-relaxed text-black dark:text-white">
+                          {row.user.content}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
-                    <button
-                      onClick={() => onEditUser(i, row.user.content)}
-                      className="icon-btn h-7 w-7 accent-focus"
-                      title="Edit message"
-                    >
-                      <Pencil size={14} />
-                    </button>
-                    <button
-                      onClick={() => onDeleteUser(i)}
-                      className="icon-btn h-7 w-7 accent-focus"
-                      title="Delete message"
-                    >
-                      <Trash size={14} />
-                    </button>
+                    {editingIdx === i ? null : (
+                      <>
+                        <button
+                          onClick={() => {
+                            setEditingIdx(i);
+                            setDraft(row.user.content);
+                          }}
+                          className="icon-btn h-7 w-7 accent-focus"
+                          title="Edit message"
+                        >
+                          <Pencil size={14} />
+                        </button>
+                        <button
+                          onClick={() =>
+                            setPendingDelete({
+                              type: 'turn',
+                              turnIndex: i,
+                            })
+                          }
+                          className="icon-btn h-7 w-7 accent-focus"
+                          title="Delete message"
+                        >
+                          <Trash size={14} />
+                        </button>
 
-                    <CopyToClipboard getText={() => row.user.content} />
+                        <CopyToClipboard getText={() => row.user.content} />
+                      </>
+                    )}
                   </div>
                 </div>
 
