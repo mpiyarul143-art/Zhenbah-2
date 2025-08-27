@@ -1,7 +1,7 @@
 'use client';
 import ConfirmDialog from '@/components/modals/ConfirmDialog';
 import type { AiModel, ChatMessage } from '@/lib/types';
-import { ChevronDown, ChevronUp, Eye, Loader2, Pencil, Star, Trash } from 'lucide-react';
+import { ChevronDown, ChevronUp, Eye, Loader2, Pencil, Save, Star, Trash, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import MarkdownLite from './MarkdownLite';
 import { CopyToClipboard } from '../ui/CopyToClipboard';
@@ -175,19 +175,21 @@ export default function ChatGrid({
                                 setEditingIdx(null);
                                 setDraft('');
                               }}
-                              className="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded border-0 transition-colors"
+                              className="icon-btn h-7 w-7 accent-focus"
+                              title="Save changes"
                               disabled={!draft.trim() || draft.trim() === String(row.user.content ?? '').trim()}
                             >
-                              Save
+                              <Save size={14}/>
                             </button>
                             <button
                               onClick={() => {
                                 setEditingIdx(null);
                                 setDraft('');
                               }}
-                              className="px-3 py-1 text-xs bg-transparent text-white rounded border border-white/20 transition-colors hover:bg-white/10"
+                              className="icon-btn h-7 w-7 accent-focus"
+                              title="Cancel editing"
                             >
-                              Cancel
+                              <X size={14}/>
                             </button>
                           </div>
                         </div>
@@ -223,6 +225,8 @@ export default function ChatGrid({
                         >
                           <Trash size={14} />
                         </button>
+
+                        <CopyToClipboard getText={() => row.user.content} />
                       </>
                     )}
                   </div>
