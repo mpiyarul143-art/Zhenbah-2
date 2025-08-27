@@ -9,7 +9,13 @@ import {
 	callMasterLLM,
 } from "./client";
 import { safeUUID } from "./uuid";
-import type { AiModel, ApiKeys, ChatMessage, ChatThread } from "./types";
+import type {
+	AiModel,
+	ApiKeys,
+	ChatMessage,
+	ChatThread,
+	Ranking,
+} from "./types";
 import type { Project } from "./projects";
 import { toast } from "react-toastify";
 
@@ -1890,27 +1896,35 @@ export function createChatActions({
 					signal: masterController.signal,
 				});
 
-				console.log(
-					JSON.parse(response.raw.choices?.[0].message.content),
-					"Master LLM Ranked Responses",
+				const rankings: Ranking[] = JSON.parse(
+					response.raw.choices?.[0].message.content,
 				);
-				//Example response:
-				//[
-				//     {
-				//         "rank": 1,
-				//         "modelId": "z-ai/glm-4.5-air",
-				//         "modelName": "ChatGLM",
-				//         "score": 95,
-				//         "reason": "Provides a thoughtful, realistic tree with commentary on how to use it for testing; includes balanced depth, mixed attribute types, and edge cases."
-				//     },
-				//     {
-				//         "rank": 2,
-				//         "modelId": "moonshotai/kimi-k2",
-				//         "modelName": "Kimi",
-				//         "score": 85,
-				//         "reason": "Compact yet deeply-nested JSON tree is practical; however, lacks narrative guidance on edge cases or test-point mapping."
-				//     }
-				// ]
+				if (!activeThread) return;
+				const thread = threads.find((t) => t.id === activeThread.id);
+				if (!thread) return;
+
+				setThreads((prev) =>
+					prev.map((t) => {
+						if (t.id !== thread.id) return t;
+
+						const updatedMessages = (t.messages ?? []).map((msg) => {
+							if (msg.role !== "assistant") return msg;
+
+							const ranking = rankings.find((r) => r.modelId === msg.modelId);
+							if (!ranking) return msg;
+
+							return {
+								...msg,
+								ranking: {
+									rank: ranking.rank,
+									score: ranking.score,
+									reason: ranking.reason,
+								},
+							};
+						});
+						return { ...t, messages: updatedMessages };
+					}),
+				);
 			} catch (error) {
 				console.error("Master LLM evaluation failed:", error);
 			}
@@ -1919,4 +1933,3 @@ export function createChatActions({
 
 	return { send, onEditUser, onDeleteUser, onDeleteAnswer };
 }
-
