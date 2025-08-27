@@ -152,28 +152,69 @@ export default function ChatGrid({
                       You
                     </span>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm leading-relaxed text-black dark:text-white">
-                        {row.user.content}
-                      </div>
+                      {editingIdx === i ? (
+                        <div className="space-y-2">
+                          <textarea
+                            value={draft}
+                            onChange={(e) => setDraft(e.target.value)}
+                            className="w-full min-h-[80px] p-2 text-sm bg-black/20 border border-white/20 rounded resize-none text-white placeholder-white/50 focus:outline-none focus:border-white/40"
+                            placeholder="Edit your message..."
+                            autoFocus
+                          />
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => {
+                                onEditUser(i, draft.trim());
+                                setEditingIdx(null);
+                                setDraft('');
+                              }}
+                              className="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded border-0 transition-colors"
+                              disabled={!draft.trim()}
+                            >
+                              Save
+                            </button>
+                            <button
+                              onClick={() => {
+                                setEditingIdx(null);
+                                setDraft('');
+                              }}
+                              className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-700 text-white rounded border-0 transition-colors"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-sm leading-relaxed text-black dark:text-white">
+                          {row.user.content}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
-                    <button
-                      onClick={() => onEditUser(i, row.user.content)}
-                      className="icon-btn h-7 w-7 accent-focus"
-                      title="Edit message"
-                    >
-                      <Pencil size={14} />
-                    </button>
-                    <button
-                      onClick={() => onDeleteUser(i)}
-                      className="icon-btn h-7 w-7 accent-focus"
-                      title="Delete message"
-                    >
-                      <Trash size={14} />
-                    </button>
+                    {editingIdx === i ? null : (
+                      <>
+                        <button
+                          onClick={() => {
+                            setEditingIdx(i);
+                            setDraft(row.user.content);
+                          }}
+                          className="icon-btn h-7 w-7 accent-focus"
+                          title="Edit message"
+                        >
+                          <Pencil size={14} />
+                        </button>
+                        <button
+                          onClick={() => onDeleteUser(i)}
+                          className="icon-btn h-7 w-7 accent-focus"
+                          title="Delete message"
+                        >
+                          <Trash size={14} />
+                        </button>
 
-                    <CopyToClipboard getText={() => row.user.content} />
+                        <CopyToClipboard getText={() => row.user.content} />
+                      </>
+                    )}
                   </div>
                 </div>
 
