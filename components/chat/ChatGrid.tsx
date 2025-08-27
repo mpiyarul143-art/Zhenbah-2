@@ -152,7 +152,7 @@ export default function ChatGrid({
                       You
                     </span>
                     <div className="flex-1 min-w-0">
-                      {editingIdx === i ? (
+                                            {editingIdx === i ? (
                         <div className="space-y-2">
                           <textarea
                             value={draft}
@@ -164,12 +164,19 @@ export default function ChatGrid({
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => {
-                                onEditUser(i, draft.trim());
+                                const next = draft.trim();
+                                const current = String(row.user.content ?? '').trim();
+                                if (next === current) {
+                                  setEditingIdx(null);
+                                  setDraft('');
+                                  return;
+                                }
+                                onEditUser(i, next);
                                 setEditingIdx(null);
                                 setDraft('');
                               }}
                               className="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded border-0 transition-colors"
-                              disabled={!draft.trim()}
+                              disabled={!draft.trim() || draft.trim() === String(row.user.content ?? '').trim()}
                             >
                               Save
                             </button>
@@ -178,7 +185,7 @@ export default function ChatGrid({
                                 setEditingIdx(null);
                                 setDraft('');
                               }}
-                              className="px-3 py-1 text-xs bg-gray-600 hover:bg-gray-700 text-white rounded border-0 transition-colors"
+                              className="px-3 py-1 text-xs bg-transparent text-white rounded border border-white/20 transition-colors hover:bg-white/10"
                             >
                               Cancel
                             </button>
@@ -205,14 +212,17 @@ export default function ChatGrid({
                           <Pencil size={14} />
                         </button>
                         <button
-                          onClick={() => onDeleteUser(i)}
+                          onClick={() =>
+                            setPendingDelete({
+                              type: 'turn',
+                              turnIndex: i,
+                            })
+                          }
                           className="icon-btn h-7 w-7 accent-focus"
                           title="Delete message"
                         >
                           <Trash size={14} />
                         </button>
-
-                        <CopyToClipboard getText={() => row.user.content} />
                       </>
                     )}
                   </div>
