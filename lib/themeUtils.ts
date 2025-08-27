@@ -70,21 +70,53 @@ export const updateCSSVariables = (config: ThemeConfig): void => {
   root.setProperty(CSS_VARIABLES.ACCENT_BG_SECONDARY, accent.background.secondary);
 
   // Update interactive accent variables for buttons and interactive elements
-  root.setProperty(CSS_VARIABLES.ACCENT_INTERACTIVE_PRIMARY, accent.primary);
-  root.setProperty(CSS_VARIABLES.ACCENT_INTERACTIVE_HOVER, accent.secondary);
-  root.setProperty(CSS_VARIABLES.ACCENT_INTERACTIVE_ACTIVE, accent.tertiary);
+root.setProperty(CSS_VARIABLES.ACCENT_INTERACTIVE_PRIMARY, accent.primary);
+root.setProperty(CSS_VARIABLES.ACCENT_INTERACTIVE_HOVER, accent.secondary);
+root.setProperty(CSS_VARIABLES.ACCENT_INTERACTIVE_ACTIVE, accent.tertiary);
+root.setProperty(
+ '--accent-interactive-focus',
+ config.mode === 'dark'
+   ? `color-mix(in srgb, ${accent.primary} 35%, transparent)`
+   : `color-mix(in srgb, ${accent.primary} 45%, transparent)`,
+);
 
-  // Update highlight accent variables
-  root.setProperty(CSS_VARIABLES.ACCENT_HIGHLIGHT_PRIMARY, accent.primary);
-  root.setProperty(CSS_VARIABLES.ACCENT_HIGHLIGHT_SECONDARY, accent.secondary);
+// Update highlight accent variables
+root.setProperty(CSS_VARIABLES.ACCENT_HIGHLIGHT_PRIMARY, accent.primary);
+root.setProperty(CSS_VARIABLES.ACCENT_HIGHLIGHT_SECONDARY, accent.secondary);
+root.setProperty(
+ '--accent-highlight-subtle',
+ config.mode === 'dark'
+   ? `color-mix(in srgb, ${accent.primary} 18%, transparent)`
+   : `color-mix(in srgb, ${accent.primary} 12%, transparent)`,
+);
 
-  // Update status variables (theme-aware but consistent across accents)
-  // These align with the app's established palette for semantic states
-  // success: emerald, warning: amber, error: red, info: blue
-  root.setProperty(CSS_VARIABLES.ACCENT_SUCCESS, '#10b981');
-  root.setProperty(CSS_VARIABLES.ACCENT_WARNING, '#f59e0b');
-  root.setProperty(CSS_VARIABLES.ACCENT_ERROR, '#ef4444');
-  root.setProperty(CSS_VARIABLES.ACCENT_INFO, '#3b82f6');
+// Update status variables (theme-aware but consistent across accents)
+// These align with the app's established palette for semantic states
+// success: emerald, warning: amber, error: red, info: blue
+root.setProperty(CSS_VARIABLES.ACCENT_SUCCESS, '#10b981');
+root.setProperty(CSS_VARIABLES.ACCENT_WARNING, '#f59e0b');
+root.setProperty(CSS_VARIABLES.ACCENT_ERROR, '#ef4444');
+root.setProperty(CSS_VARIABLES.ACCENT_INFO, '#3b82f6');
+
+// Update glow variables
+root.setProperty(
+ '--accent-glow-soft',
+ config.mode === 'dark'
+   ? `color-mix(in srgb, ${accent.primary} 28%, transparent)`
+   : `color-mix(in srgb, ${accent.primary} 20%, transparent)`,
+);
+root.setProperty(
+ '--accent-glow-medium',
+ config.mode === 'dark'
+   ? `color-mix(in srgb, ${accent.primary} 45%, transparent)`
+   : `color-mix(in srgb, ${accent.primary} 30%, transparent)`,
+);
+root.setProperty(
+ '--accent-glow-strong',
+ config.mode === 'dark'
+   ? `color-mix(in srgb, ${accent.primary} 65%, transparent)`
+   : `color-mix(in srgb, ${accent.primary} 40%, transparent)`,
+);
 
   // Update font variables
   root.setProperty(CSS_VARIABLES.FONT_PRIMARY, font.primary);
@@ -158,26 +190,6 @@ export const loadTheme = (): ThemeConfig | null => {
   }
 };
 
-// Theme Transition Helpers
-export const withThemeTransition = (callback: () => void, duration: number = 300): void => {
-  // Check if we're in a browser environment (not SSR)
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
-    // Just execute callback without transition in SSR
-    callback();
-    return;
-  }
-
-  // Add transition class to body
-  document.body.style.transition = `all ${duration}ms ease-in-out`;
-
-  // Execute the theme change
-  callback();
-
-  // Remove transition after completion
-  setTimeout(() => {
-    document.body.style.transition = '';
-  }, duration);
-};
 
 // Color Utility Functions
 export const hexToRgba = (hex: string, alpha: number = 1): string => {

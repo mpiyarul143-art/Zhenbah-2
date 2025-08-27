@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, lazy, Suspense } from 'react';
 
 import HeaderBar from '@/components/app/HeaderBar';
 import SelectedModelsBar from '@/components/chat/SelectedModelsBar';
@@ -9,8 +9,6 @@ import { mergeModels, useCustomModels } from '@/lib/customModels';
 import { ChatMessage, ApiKeys, ChatThread, AiModel } from '@/lib/types';
 import { createChatActions } from '@/lib/chatActions';
 import { useProjects } from '@/lib/useProjects';
-import ModelsModal from '@/components/modals/ModelsModal';
-import FirstVisitNote from '@/components/app/FirstVisitNote';
 import FixedInputBar from '@/components/chat/FixedInputBar';
 import ThreadSidebar from '@/components/chat/ThreadSidebar';
 import ChatGrid from '@/components/chat/ChatGrid';
@@ -18,6 +16,10 @@ import { useTheme } from '@/lib/themeContext';
 import { BACKGROUND_STYLES } from '@/lib/themes';
 import { safeUUID } from '@/lib/uuid';
 import LaunchScreen from '@/components/ui/LaunchScreen';
+
+// Lazy loaded components
+const LazyModelsModal = lazy(() => import('@/components/modals/ModelsModal'));
+const LazyFirstVisitNote = lazy(() => import('@/components/app/FirstVisitNote'));
 
 export default function Home() {
   const { theme } = useTheme();
@@ -274,20 +276,24 @@ export default function Home() {
               </div>
             )}
 
-            <ModelsModal
-              open={modelsModalOpen}
-              onClose={() => setModelsModalOpen(false)}
-              selectedIds={selectedIds}
-              selectedModels={selectedModels}
-              customModels={customModels}
-              onToggle={toggle}
-            />
+            <Suspense fallback={null}>
+              <LazyModelsModal
+                open={modelsModalOpen}
+                onClose={() => setModelsModalOpen(false)}
+                selectedIds={selectedIds}
+                selectedModels={selectedModels}
+                customModels={customModels}
+                onToggle={toggle}
+              />
+            </Suspense>
 
             {isHydrated && (
-              <FirstVisitNote
-                open={showFirstVisitNote}
-                onClose={() => setFirstNoteDismissed(true)}
-              />
+              <Suspense fallback={null}>
+                <LazyFirstVisitNote
+                  open={showFirstVisitNote}
+                  onClose={() => setFirstNoteDismissed(true)}
+                />
+              </Suspense>
             )}
 
             {isHydrated && (

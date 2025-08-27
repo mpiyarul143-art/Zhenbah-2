@@ -1,7 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { X, Star, StarOff } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion'; // Import framer-motion
 import type { AiModel } from '@/lib/types';
+import type { CustomModel } from '@/lib/customModels'; // Import CustomModel type
 import { MODEL_CATALOG } from '@/lib/models';
 import { useLocalStorage } from '@/lib/useLocalStorage';
 import { mergeModels } from '@/lib/customModels';
@@ -43,8 +45,6 @@ export default function ModelsModal({
       document.body.classList.remove('modal-open');
     }
   }, [open]);
-
-  if (!open) return null;
 
   const buckets: Record<string, AiModel[]> = {
     Favorites: [],
@@ -335,63 +335,79 @@ export default function ModelsModal({
   );
 
   // Use merged models for tab counts
-  const allModels = mergeModels(customModels);
+  // Type assertion: we know customModels contains only CustomModel instances
+  const allModels = mergeModels(customModels as CustomModel[]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div
-        role="dialog"
-        aria-modal="true"
-        className="relative w-full sm:w-full max-w-none sm:max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-3 sm:mx-auto rounded-xl sm:rounded-2xl border border-white/10 bg-zinc-900/90 p-4 sm:p-6 md:p-7 lg:p-8 shadow-2xl h-[90vh] sm:max-h-[90vh] overflow-hidden flex flex-col min-h-0"
-      >
-        <div className="px-4 sm:-mx-6 md:-mx-7 lg:-mx-8 sm:px-6 md:px-7 lg:px-8 pt-1 pb-3 mb-3 flex items-center justify-between bg-zinc-900/95 backdrop-blur border-b border-white/10">
-          <h3 className="text-base md:text-lg lg:text-xl font-semibold tracking-wide">
-            Select up to 5 models
-          </h3>
-          <button
-            aria-label="Close"
+    <AnimatePresence>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={onClose}
-            className="h-8 w-8 md:h-9 md:w-9 inline-flex items-center justify-center rounded-md bg-white/10 hover:bg-white/20"
+          />
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="relative w-full sm:w-full max-w-none sm:max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-3 sm:mx-auto rounded-xl sm:rounded-2xl border border-white/10 bg-zinc-900/90 p-4 sm:p-6 md:p-7 lg:p-8 shadow-2xl h-[90vh] sm:max-h-[90vh] overflow-hidden flex flex-col min-h-0"
           >
-            <X size={16} />
-          </button>
-        </div>
-        <div className="text-xs md:text-sm text-zinc-300 mb-4">
-          Selected: {selectedModels.length}/5
-        </div>
+            <div className="px-4 sm:-mx-6 md:-mx-7 lg:-mx-8 sm:px-6 md:px-7 lg:px-8 pt-1 pb-3 mb-3 flex items-center justify-between bg-zinc-900/95 backdrop-blur border-b border-white/10">
+              <h3 className="text-base md:text-lg lg:text-xl font-semibold tracking-wide">
+                Select up to 5 models
+              </h3>
+              <button
+                aria-label="Close"
+                onClick={onClose}
+                className="h-8 w-8 md:h-9 md:w-9 inline-flex items-center justify-center rounded-md bg-white/10 hover:bg-white/20"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <div className="text-xs md:text-sm text-zinc-300 mb-4">
+              Selected: {selectedModels.length}/5
+            </div>
 
-        {/* Provider Filter Tabs */}
-        <div className="flex flex-wrap gap-2 mb-4 pb-3 border-b border-white/10">
-          {[
-            { id: 'all', label: 'All Models', count: allModels.length },
-            { id: 'pro', label: 'Pro Models', count: allModels.filter(m => m.provider === 'unstable' || m.provider === 'mistral').length },
-            { id: 'gemini', label: 'Gemini', count: allModels.filter(m => m.provider === 'gemini').length },
-            { id: 'openrouter', label: 'OpenRouter', count: allModels.filter(m => m.provider === 'openrouter').length },
-            { id: 'open-provider', label: 'Open Provider', count: allModels.filter(m => m.provider === 'open-provider').length },
-            { id: 'unstable', label: 'Unstable', count: allModels.filter(m => m.provider === 'unstable').length },
-            { id: 'mistral', label: 'Mistral', count: allModels.filter(m => m.provider === 'mistral').length },
-            { id: 'ollama', label: 'Ollama', count: allModels.filter(m => m.provider === 'ollama').length },
-          ].map(provider => (
-            <button
-              key={provider.id}
-              onClick={() => setActiveProvider(provider.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                activeProvider === provider.id
-                  ? 'bg-white/20 text-white border border-white/30'
-                  : 'bg-white/5 text-zinc-300 hover:bg-white/10 border border-white/10'
-              }`}
-            >
-              {provider.label} {provider.count}
-            </button>
-          ))}
-        </div>
+            {/* Provider Filter Tabs */}
+            <div className="flex flex-wrap gap-2 mb-4 pb-3 border-b border-white/10">
+              {[
+                { id: 'all', label: 'All Models', count: allModels.length },
+                { id: 'pro', label: 'Pro Models', count: allModels.filter(m => m.provider === 'unstable' || m.provider === 'mistral').length },
+                { id: 'gemini', label: 'Gemini', count: allModels.filter(m => m.provider === 'gemini').length },
+                { id: 'openrouter', label: 'OpenRouter', count: allModels.filter(m => m.provider === 'openrouter').length },
+                { id: 'open-provider', label: 'Open Provider', count: allModels.filter(m => m.provider === 'open-provider').length },
+                { id: 'unstable', label: 'Unstable', count: allModels.filter(m => m.provider === 'unstable').length },
+                { id: 'mistral', label: 'Mistral', count: allModels.filter(m => m.provider === 'mistral').length },
+                { id: 'ollama', label: 'Ollama', count: allModels.filter(m => m.provider === 'ollama').length },
+              ].map(provider => (
+                <button
+                  key={provider.id}
+                  onClick={() => setActiveProvider(provider.id)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    activeProvider === provider.id
+                      ? 'bg-white/20 text-white border border-white/30'
+                      : 'bg-white/5 text-zinc-300 hover:bg-white/10 border border-white/10'
+                  }`}
+                >
+                  {provider.label} {provider.count}
+                </button>
+              ))}
+            </div>
 
-        <div className="space-y-4 flex-1 overflow-y-auto pr-1 scroll-touch safe-inset">
-          {customSection}
-          {builtInSections}
+            <div className="space-y-4 flex-1 overflow-y-auto pr-1 scroll-touch safe-inset">
+              {customSection}
+              {builtInSections}
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }

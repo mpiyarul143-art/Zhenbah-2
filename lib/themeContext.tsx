@@ -109,11 +109,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
       applyTheme(theme);
 
       // STILL DISABLED: Transitions and logging
-      // if (enableTransitions) {
-      //   withThemeTransition(() => applyTheme(theme));
-      // } else {
-      //   applyTheme(theme);
-      // }
+      applyTheme(theme); // Apply theme directly without transition wrapper
 
       // if (enableLogging) {
       //   logThemeInfo(theme);

@@ -3,6 +3,7 @@ import ConfirmDialog from '@/components/modals/ConfirmDialog';
 import type { AiModel, ChatMessage } from '@/lib/types';
 import { ChevronDown, ChevronUp, Eye, Loader2, Pencil, Star, Trash } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { motion } from 'framer-motion'; // Import framer-motion
 import MarkdownLite from './MarkdownLite';
 import { CopyToClipboard } from '../ui/CopyToClipboard';
 import { estimateTokens, sanitizeContent } from '@/lib/utils';
@@ -142,7 +143,15 @@ export default function ChatGrid({
             </div>
 
             {pairs.map((row, i) => (
-              <div key={i} className="space-y-3">
+              <motion.div
+                key={i}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="space-y-3"
+              >
                 {/* Prompt callout */}
                 <div className="relative flex items-start justify-between gap-3 px-3 py-2 rounded-lg ring-1 ring-black/10 dark:ring-white/10 chat-prompt-accent">
                   <div className="chat-prompt-side" />
@@ -185,7 +194,15 @@ export default function ChatGrid({
                     const ans = row.answers.find((a) => a.modelId === m.id);
                     const isCollapsed = collapsedIds.includes(m.id);
                     return (
-                      <div key={m.id} className="h-full">
+                      <motion.div
+                        key={m.id}
+                        layout
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        className="h-full"
+                      >
                         <div
                           className={`group relative rounded-lg ${
                             isCollapsed ? 'p-2.5' : 'p-3'
@@ -340,11 +357,11 @@ export default function ChatGrid({
                             </div>
                           )}
                         </div>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         )}
