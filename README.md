@@ -16,7 +16,7 @@ An open-source, multi-model AI chat playground built with Next.js App Router. Sw
 
 ## Features
 
-- **Multiple providers**: Gemini, OpenRouter (DeepSeek R1, Llama 3.3, Qwen, Mistral, Moonshot, Reka, Sarvam, A4f, etc.)
+- **Multiple providers**: Gemini, OpenRouter (DeepSeek R1, Llama 3.3, Qwen, Mistral, Moonshot, Reka, Sarvam, etc.)
 - **Selectable model catalog**: choose up to 5 models to run
 - **Web search toggle** per message
 - **Image attachment** support (Gemini)
